@@ -13,9 +13,33 @@ export class App extends Component {
     filter: ""
   }
 
+  componentDidMount() {
+    console.log("DidMount")
+    const contacts = localStorage.getItem('contacts');
+    const parsedContacts = JSON.parse(contacts);
+    console.log(contacts)
+
+    if (contacts !== null) { // if contacts is not empty, change its state from the data from local storage
+      this.setState({ contacts: parsedContacts });
+    } else {
+      localStorage.setItem('contacts', JSON.stringify(this.state.contacts)); // if contacts is empty, set it
+    }
+  }
+
+  componentDidUpdate(_prevProps, prevState) {
+    console.log("didUpdate")
+    const { contacts } = this.state;
+    if (contacts !== prevState.contacts) { //if contacts is not equal to the previous contacts info, then change its state to the new data 
+      console.log('data changed')
+      localStorage.setItem('contacts', JSON.stringify(contacts));
+    } else {
+      console.log("no changes")
+    }
+  }
   
 
   render() {
+    console.log("render()")
     const { contacts, filter } = this.state
     
     const addInfo = (newInfo) => {

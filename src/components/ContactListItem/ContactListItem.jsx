@@ -3,6 +3,10 @@ import css from './ContactListItem.module.css'
 import PropTypes from 'prop-types'
 
 export default class ContactListItem extends Component {
+
+    componentWillUnmount() {
+        console.log("data deleted")
+    }
     render() {
     const {filteredContact, deleteInfo} = this.props
     
